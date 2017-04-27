@@ -76,7 +76,7 @@ router.post('/tweets', function(req, res, next){
         postgresClient.query(`${INSERT_INTO} users (name,picture_url) VALUES ($1,$2)`,[body.name,"TEST URL"] ,function (err,result) {
           if(err) return err;
          
-          postgresClient.query('SELECT users.id FROM users WHERE name=$1',[body.name],function (err,result) {
+          postgresClient.query('SELECT users.id FROM users WHERE name LIKE %$1',[body.name],function (err,result) {
                if(err){
                 console.log(err)
                 return err;
@@ -92,6 +92,19 @@ router.post('/tweets', function(req, res, next){
   })
 
 });
+
+router.post('/search', function (req, res, next) {
+  var query = req.body.name;
+  console.log(query)
+  postgresClient.query('SELECT content FROM tweets WHERE content=$1',[query],function (err,result) {
+      if(err){
+        console.log(err)
+        return err;
+      }    
+    console.log(result)
+  })
+  
+})
 
 // // replaced this hard-coded route with general static routing in app.js
 // router.get('/stylesheets/style.css', function(req, res, next){

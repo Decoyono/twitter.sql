@@ -21,6 +21,10 @@
           <input type="submit" value="Submit" />
         </form>
       {% endif %}
+       <form action="/search" method="POST" style="margin-top:15px;">
+          <input name="name" type="text" id="Search" value="{{ searchString }}"/>
+          <input type="submit" value="Search" />
+       </form>
     </div>
     <div class="col-md-9">
 
@@ -28,7 +32,7 @@
       <div id="tweets">
       {% for tweet in tweets | reverse %}
         <div class="tweetbox">
-          <img src="http://lorempixel.com/48/48?name={{ tweet.name }}">
+          <!-- <img src="http://lorempixel.com/48/48?name={{ tweet.name }}"> -->
           <div class="content">
             <p class="by"><a href="/users/{{ tweet.name }}">{{tweet.name}}</a></p>
             <p><a href="/tweets/{{ tweet.id }}">{{tweet.content}}</a></p>
